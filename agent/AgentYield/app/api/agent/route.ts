@@ -9,6 +9,8 @@ import {
   ViemWalletProvider,
   walletActionProvider,
   wethActionProvider,
+  compoundActionProvider,
+  morphoActionProvider
 } from "@coinbase/agentkit";
 import { getLangChainTools } from "@coinbase/agentkit-langchain";
 import { ChatOpenAI } from "@langchain/openai";
@@ -114,7 +116,8 @@ async function getOrInitializeAgent(): Promise<ReturnType<typeof createReactAgen
       pythActionProvider(),
       walletActionProvider(),
       erc20ActionProvider(),
-      helloWorldActionProvider()
+      helloWorldActionProvider(),
+      compoundActionProvider()
     ];
     const canUseCdpApi = process.env.CDP_API_KEY_NAME && process.env.CDP_API_KEY_PRIVATE_KEY;
     if (canUseCdpApi) {
