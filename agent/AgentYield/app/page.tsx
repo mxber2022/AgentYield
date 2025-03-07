@@ -53,7 +53,7 @@ function App() {
                 </div>
               </div>
               <h1 className="text-3xl font-light tracking-tighter text-gradient">
-                Vault<span className="font-bold">Ai</span>
+                Vault<span className="font-bold">AI</span>
               </h1>
             </div>
             <nav className="hidden md:ml-12 md:flex md:space-x-8">
@@ -125,7 +125,7 @@ function App() {
               <div className="ml-4 flex-1">
                 <div className="flex items-center justify-between">
                   <h2 className="text-xl font-light text-white/90 tracking-tight flex items-center space-x-3">
-                    <span>AI Yield Assistant</span>
+                    <span>Your personal AI Assistant</span>
                     {/* <Sparkles className="w-4 h-4 text-white/40" /> */}
                   </h2>
                   <div className="flex items-center space-x-2 text-emerald-500/80">
