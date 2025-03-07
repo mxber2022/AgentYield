@@ -59,7 +59,3 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Contact
 
 For questions, feedback, or collaborations, reach out to us at contact@vaultai.com.
-
----
-
-Feel free to customize this template further based on specific functionalities, APIs used, or additional features unique to VaultAI.
