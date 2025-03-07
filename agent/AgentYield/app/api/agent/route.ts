@@ -18,6 +18,7 @@ import { AgentRequest, AgentResponse } from "@/app/types/api";
 import { createWalletClient, Hex, http } from "viem";
 import { generatePrivateKey, privateKeyToAccount } from "viem/accounts";
 import fs from "fs";
+import { helloWorldActionProvider } from "@/app/yieldfinder/yieldfinderProvider";
 
 /**
  * AgentKit Integration Route
@@ -113,6 +114,7 @@ async function getOrInitializeAgent(): Promise<ReturnType<typeof createReactAgen
       pythActionProvider(),
       walletActionProvider(),
       erc20ActionProvider(),
+      helloWorldActionProvider()
     ];
     const canUseCdpApi = process.env.CDP_API_KEY_NAME && process.env.CDP_API_KEY_PRIVATE_KEY;
     if (canUseCdpApi) {
