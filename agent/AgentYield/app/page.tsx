@@ -173,7 +173,7 @@ function App() {
               <input
                 type="text"
                 className="flex-grow px-6 py-4 rounded-2xl glass text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-white/20 transition-all tracking-wide"
-                placeholder="Ask about yield opportunities..."
+                placeholder="Ask about portfolio and yield opportunities..."
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && onSendMessage()}
