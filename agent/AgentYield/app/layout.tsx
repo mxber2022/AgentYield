@@ -13,9 +13,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-gray-100 dark:bg-gray-900 dark flex flex-col min-h-screen">
+       <body> 
         {/* Header (Fixed Height) */}
-        <header className="py-6 flex items-center justify-between relative">
+        {/* <header className="py-6 flex items-center justify-between relative">
           <img 
             src="https://images.ctfassets.net/q5ulk4bp65r7/3TBS4oVkD1ghowTqVQJlqj/2dfd4ea3b623a7c0d8deb2ff445dee9e/Consumer_Wordmark.svg" 
             alt="Coinbase" 
@@ -25,15 +25,15 @@ export default function RootLayout({
           <span className="absolute left-1/2 transform -translate-x-1/2 text-3xl font-bold text-blue-600 dark:text-blue-400">
             AgentKit
           </span>
-        </header>
+        </header> */}
 
         {/* Main Content (Dynamic, Grows but Doesn't Force Scroll) */}
-        <main className="flex-grow flex items-center justify-center px-4">
+        <main>
           {children}
         </main>
 
         {/* Footer (Fixed Height) */}
-        <footer className="py-4 text-center text-gray-500 dark:text-gray-400 flex-none">
+        {/* <footer className="py-4 text-center text-gray-500 dark:text-gray-400 flex-none">
           <img 
             src="https://images.ctfassets.net/q5ulk4bp65r7/3TBS4oVkD1ghowTqVQJlqj/2dfd4ea3b623a7c0d8deb2ff445dee9e/Consumer_Wordmark.svg" 
             alt="Coinbase" 
@@ -81,8 +81,8 @@ export default function RootLayout({
           <p className="text-xs text-gray-400 mt-2">
             © {new Date().getFullYear()} Coinbase, Inc.
           </p>
-        </footer>
-      </body>
+        </footer> */}
+       </body> 
     </html>
   );
 }
