@@ -161,7 +161,7 @@ function App() {
             {isThinking && (
               <div className="flex items-center space-x-3 text-white/50 pl-2">
                 <Loader2 className="w-5 h-5 animate-spin" />
-                <span className="text-sm animate-pulse tracking-wide">Analyzing market data...</span>
+                <span className="text-sm animate-pulse tracking-wide">Analyzing ...</span>
               </div>
             )}
             <div ref={messagesEndRef} />
