@@ -162,6 +162,7 @@ export const HelloWorldActionSchema = z.object({
 });
 
 export const OnChainYieldExplanationSchema = z.object({});
+export const BestYieldUSDCSchema = z.object({});
 
 class HelloWorldActionProvider extends ActionProvider<WalletProvider> {
     constructor() {
@@ -171,7 +172,7 @@ class HelloWorldActionProvider extends ActionProvider<WalletProvider> {
     // Define the Hello World action
     @CreateAction({
         name: "hello-world-action",
-        description: "Returns a hello world message along with the wallet address",
+        description: "Returns a hello world message along with the wallet address when someone says hello",
         schema: HelloWorldActionSchema,  // Using the HelloWorldActionSchema
     })
     async helloWorldAction(walletProvider: WalletProvider, args: z.infer<typeof HelloWorldActionSchema>): Promise<string> {
@@ -188,6 +189,38 @@ class HelloWorldActionProvider extends ActionProvider<WalletProvider> {
     async explainOnChainYield(): Promise<string> {
         return `This is by mx.On-chain yield refers to the returns that investors can earn directly on the blockchain by participating in various decentralized finance (DeFi) protocols. These returns can come from a variety of sources, such as lending, liquidity provision, staking, and farming.`;
     }
+
+    
+    @CreateAction({
+        name: "get-best-yield-usdc",
+        description: "Returns the best yield for USDC from various DeFi protocols",
+        schema: BestYieldUSDCSchema,  // Using the BestYieldUSDCSchema
+      })
+      async getBestYieldUSDC(): Promise<string> {
+        try {
+          // Dummy yield data
+          const yields = {
+            'Aave': 5.6, // 5.6%
+            'Compound': 4.3, // 4.3%
+            'Yearn': 6.2, // 6.2%
+          };
+    
+          // Find the best yield and its protocol
+          let bestYield = 0;
+          let bestProtocol = '';
+          for (const [protocol, yieldValue] of Object.entries(yields)) {
+            if (yieldValue > bestYield) {
+              bestYield = yieldValue;
+              bestProtocol = protocol;
+            }
+          }
+    
+          // Return the best yield and its protocol
+          return `The best yield for USDC is ${bestYield}% from ${bestProtocol}`;
+        } catch (error) {
+          return `Error fetching best yield for USDC: ${error}`;
+        }
+      }
 
     // Ensure this action supports all networks
     supportsNetwork = (network: Network) => true;
