@@ -2,7 +2,7 @@
 
 import { useAgent } from "./hooks/useAgent";
 import React, { useState, useEffect, useRef } from 'react';
-import { Send, Loader2, LineChart, Shield, Wallet, Menu, X, ChevronRight, Hexagon, ArrowUpRight, Sparkles } from 'lucide-react';
+import { Send, Loader2, LineChart, Shield, Wallet, Menu, X, ChevronRight, Hexagon, ArrowUpRight, Sparkles, Activity,Bot } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 
 function App() {
@@ -109,18 +109,34 @@ function App() {
       <main className="flex-1 flex items-center justify-center p-6 pt-32">
         <div className="w-full max-w-4xl h-[calc(100vh-10rem)] glass rounded-3xl shadow-2xl flex flex-col overflow-hidden">
           {/* Chat Header */}
-          <div className="px-8 py-6 glass">
+          <div className="px-8 py-6 glass border-b border-white/[0.02]">
             <div className="flex items-center">
-              <div className="relative">
-                <div className="w-3 h-3 bg-white/10 rounded-full animate-ping absolute" />
-                <div className="w-3 h-3 bg-white rounded-full relative" />
+              <div className="relative flex items-center justify-center w-12 h-12">
+                <Bot className="w-6 h-6 text-white/80" strokeWidth={1.5} />
+                <div className="absolute inset-0 bg-white/5 rounded-xl animate-pulse-slow"></div>
+                <div className="absolute top-0 right-0">
+                  {/* <div className="relative">
+                    <div className="w-2.5 h-2.5 bg-emerald-500/80 rounded-full"></div>
+                    <div className="absolute inset-0 bg-emerald-500/50 rounded-full animate-ping"></div>
+                    <div className="absolute inset-0 bg-emerald-500/30 rounded-full animate-pulse"></div>
+                  </div> */}
+                </div>
               </div>
-              <div className="ml-4">
-                <h2 className="text-xl font-light text-white/90 tracking-tight flex items-center">
-                  AI Yield Assistant
-                  <Sparkles className="w-4 h-4 ml-2 text-white/50" />
-                </h2>
-                <p className="text-sm text-white/50 mt-1 tracking-wide">Analyzing real-time DeFi opportunities</p>
+              <div className="ml-4 flex-1">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-xl font-light text-white/90 tracking-tight flex items-center space-x-3">
+                    <span>AI Yield Assistant</span>
+                    {/* <Sparkles className="w-4 h-4 text-white/40" /> */}
+                  </h2>
+                  <div className="flex items-center space-x-2 text-emerald-500/80">
+                    <Activity className="w-3.5 h-3.5" />
+                    <span className="text-xs font-medium tracking-wide">LIVE</span>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-2 mt-1">
+                  <div className="h-1 w-1 rounded-full bg-emerald-500/60"></div>
+                  <p className="text-sm text-white/50 tracking-wide">Real-time market analysis & yield optimization</p>
+                </div>
               </div>
             </div>
           </div>
