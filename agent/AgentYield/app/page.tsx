@@ -53,7 +53,7 @@ function App() {
                 </div>
               </div>
               <h1 className="text-3xl font-light tracking-tighter text-gradient">
-                yield<span className="font-bold">seeker</span>
+                Vault<span className="font-bold">Ai</span>
               </h1>
             </div>
             <nav className="hidden md:ml-12 md:flex md:space-x-8">
@@ -218,7 +218,7 @@ function App() {
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
                 <Hexagon className="w-4 h-4 text-white/90 rotate-90" strokeWidth={1.5} />
-                <span className="text-white/90 font-light tracking-tighter">Agent<span className="font-bold">Yield</span></span>
+                <span className="text-white/90 font-light tracking-tighter">Vault<span className="font-bold">AI</span></span>
               </div>
               <span className="text-white/20">|</span>
               <span className="text-white/50 text-sm tracking-wide">Optimizing DeFi yields with AI</span>
