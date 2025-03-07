@@ -142,37 +142,43 @@ function App() {
           </div>
 
           {/* Messages Container */}
-          <div className="flex-grow overflow-y-auto space-y-6 p-8 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
-            {messages.map((msg, index) => (
-              <div
-                key={index}
-                className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'} message-enter message-enter-active`}
-              >
-                <div
-                  className={`max-w-[80%] p-6 rounded-2xl shadow-lg
-                    ${msg.sender === 'user' 
-                      ? 'bg-white text-black ml-8' 
-                      : 'glass text-white/90 mr-8'
-                    } transition-all duration-300 hover:shadow-xl hover:scale-[1.02]`}
-                >
-                  <ReactMarkdown
-                    components={{
-                      p: ({node, ...props}) => <p className="leading-relaxed tracking-wide" {...props} />,
-                      a: ({node, ...props}) => (
-                        <a
-                          {...props}
-                          className="text-white/80 hover:text-white underline transition-colors"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        />
-                      ),
-                    }}
-                  >
-                    {msg.text}
-                  </ReactMarkdown>
-                </div>
-              </div>
-            ))}
+          <div className="flex-grow overflow-y-auto space-y-6 p-8 scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-transparent">
+  {messages.map((msg, index) => (
+    <div
+      key={index}
+      className={`flex ${
+        msg.sender === 'user' ? 'justify-end' : 'justify-start'
+      } message-enter message-enter-active`}
+    >
+      <div
+        className={`max-w-[80%] p-6 rounded-2xl shadow-lg transition-all duration-300 ease-in-out transform hover:shadow-2xl hover:scale-[1.02] ${
+          msg.sender === 'user'
+            ? 'bg-white text-black ml-8'
+            : 'glass text-white/90 mr-8'
+        }`}
+      >
+        <ReactMarkdown
+          components={{
+            p: ({ node, ...props }) => (
+              <p className="leading-relaxed tracking-wide" {...props} />
+            ),
+            a: ({ node, ...props }) => (
+              <a
+                {...props}
+                className="text-white/80 hover:text-white underline transition-colors duration-200 ease-in-out"
+                target="_blank"
+                rel="noopener noreferrer"
+              />
+            ),
+          }}
+        >
+          {msg.text}
+        </ReactMarkdown>
+      </div>
+    </div>
+  ))}
+
+
             
             {isThinking && (
               <div className="flex items-center space-x-3 text-white/50 pl-2">
@@ -189,7 +195,7 @@ function App() {
               <input
                 type="text"
                 className="flex-grow px-6 py-4 rounded-2xl glass text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-white/20 transition-all tracking-wide"
-                placeholder="Ask about portfolio and yield opportunities..."
+                placeholder="Ask me anything to do..."
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && onSendMessage()}
