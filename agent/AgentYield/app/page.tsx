@@ -37,39 +37,39 @@ function App() {
 
   return (
     <div className="min-h-screen bg-black flex flex-col">
-      {/* Header */}
-      <header className="glass fixed w-full z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-24">
-            <div className="flex items-center">
-              <div className="flex-shrink-0 flex items-center space-x-4 group cursor-pointer">
-                <div className="relative">
-                  <Hexagon className="w-10 h-10 text-white rotate-90 group-hover:scale-110 transition-transform duration-500" strokeWidth={1.25} />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-2.5 h-2.5 bg-white rounded-full animate-pulse-slow" />
-                  </div>
-                  <div className="absolute inset-0 flex items-center justify-center opacity-50">
-                    <div className="w-5 h-5 bg-white/10 rounded-full animate-ping" />
-                  </div>
+    {/* Header */}
+    <header className="glass fixed w-full z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          <div className="flex items-center">
+            <div className="flex-shrink-0 flex items-center space-x-3 group cursor-pointer">
+              <div className="relative">
+                <Hexagon className="w-8 h-8 text-white rotate-90 group-hover:scale-110 transition-transform duration-500" strokeWidth={1.25} />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-2 h-2 bg-white rounded-full animate-pulse-slow" />
                 </div>
-                <h1 className="text-4xl font-light tracking-tighter text-gradient">
-                  Agent<span className="font-bold">Yield</span>
-                </h1>
+                <div className="absolute inset-0 flex items-center justify-center opacity-50">
+                  <div className="w-4 h-4 bg-white/10 rounded-full animate-ping" />
+                </div>
               </div>
-              <nav className="hidden md:ml-16 md:flex md:space-x-12">
-                {navigationItems.map((item) => (
-                  <a
-                    key={item.name}
-                    href="#"
-                    className="group flex items-center text-white/60 hover:text-white px-4 py-2 text-sm font-medium tracking-wide transition-all duration-300 glass-hover rounded-xl"
-                  >
-                    <item.icon className="w-4 h-4 mr-2.5 group-hover:text-white transition-colors" />
-                    {item.name}
-                    <ArrowUpRight className="w-3.5 h-3.5 ml-1.5 opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500" />
-                  </a>
-                ))}
-              </nav>
+              <h1 className="text-3xl font-light tracking-tighter text-gradient">
+                yield<span className="font-bold">seeker</span>
+              </h1>
             </div>
+            <nav className="hidden md:ml-12 md:flex md:space-x-8">
+              {navigationItems.map((item) => (
+                <a
+                  key={item.name}
+                  href="#"
+                  className="group flex items-center text-white/60 hover:text-white px-3 py-1.5 text-sm font-medium tracking-wide transition-all duration-300 glass-hover rounded-lg"
+                >
+                  <item.icon className="w-4 h-4 mr-2 group-hover:text-white transition-colors" />
+                  {item.name}
+                  <ArrowUpRight className="w-3.5 h-3.5 ml-1.5 opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500" />
+                </a>
+              ))}
+            </nav>
+          </div>
             
             <div className="md:hidden">
               <button
