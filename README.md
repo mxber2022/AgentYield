@@ -14,6 +14,10 @@ VaultAI is an advanced AI-driven personal assistant designed for seamless crypto
   
 - **Yield Optimization**: Automatically find and recommend the best yield farming opportunities based on current market conditions.
 
+## Presentation
+
+https://www.canva.com/design/DAGhFOJh1Vk/YC-DsEUc0_FXCM3S7git0A/edit?utm_content=DAGhFOJh1Vk&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
 ## Installation
 
 To get started with VaultAI, follow these steps:
