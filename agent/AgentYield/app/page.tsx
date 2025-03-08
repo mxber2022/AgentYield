@@ -35,6 +35,19 @@ function App() {
     { name: 'Risk Analysis', icon: Shield },
   ];
 
+  const suggestionChips = [
+    "Show highest APY",
+    "Compare risks",
+    "Latest opportunities",
+    "Portfolio analysis"
+  ];
+
+  const handleSuggestionClick = (suggestion: string) => {
+    
+    setInput(suggestion);
+   
+  }
+
   return (
     <div className="min-h-screen bg-black flex flex-col">
     {/* Header */}
@@ -187,6 +200,27 @@ function App() {
               </div>
             )}
             <div ref={messagesEndRef} />
+          </div>
+
+
+           {/* Suggestion Chips */}
+           <div className="px-6 py-3 glass border-t border-white/[0.02]">
+            <div className="flex items-center space-x-2 overflow-x-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent pb-2">
+              {suggestionChips.map((suggestion, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleSuggestionClick(suggestion)}
+                  disabled={isThinking}
+                  className={`flex-shrink-0 px-4 py-1.5 rounded-full text-sm transition-all duration-300
+                    ${isThinking
+                      ? 'text-white/30 bg-white/5 cursor-not-allowed'
+                      : 'text-white/60 hover:text-white bg-white/5 hover:bg-white/10 active:scale-95'
+                    }`}
+                >
+                  {suggestion}
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Input Area */}
