@@ -21,7 +21,10 @@ interface TokenModalProps {
   onSubmit: (type: 'ERC20' | 'ERC721', data: TokenFormData) => void;
 }
 
+
+
 const TokenModal: React.FC<TokenModalProps> = ({ type, isOpen, onClose, onSubmit }) => {
+
   const [formData, setFormData] = useState<TokenFormData>({
     name: '',
     symbol: '',
@@ -159,6 +162,9 @@ const TokenModal: React.FC<TokenModalProps> = ({ type, isOpen, onClose, onSubmit
 };
 
 function App() {
+
+
+
   const [input, setInput] = useState("");
   const { messages, sendMessage, isThinking } = useAgent();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -219,9 +225,11 @@ function App() {
    
   }
 
-  async function handleTokenFormSubmit() {
-
-  }
+  const handleTokenFormSubmit = (type: 'ERC20' | 'ERC721', formData: TokenFormData) => {
+    console.log(type, formData);
+    setIsModalOpen(false);
+    setInput(`deploy ${type} with name ${formData.name} and symbol ${formData.symbol} and supply  ${formData.initialSupply}` );
+  };
 
   return (
     <div className="min-h-screen bg-black flex flex-col">
