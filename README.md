@@ -62,4 +62,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Contact
 
-For questions, feedback, or collaborations, reach out to us at contact@vaultai.com.
+For questions, feedback, or collaborations, reach out to us at mxber2022@gmail.com.
