@@ -40,6 +40,9 @@ class HelloWorldActionProvider extends ActionProvider<WalletProvider> {
         return `This is by mx.On-chain yield refers to the returns that investors can earn directly on the blockchain by participating in various decentralized finance (DeFi) protocols. These returns can come from a variety of sources, such as lending, liquidity provision, staking, and farming.`;
     }
 
+    /* 
+        Issue querying blochain data for now. Will go with deafult values. http://localhost:3001/api/yieldopportunity 
+    */
     
     @CreateAction({
         name: "get-best-yield-usdc",
@@ -50,9 +53,8 @@ class HelloWorldActionProvider extends ActionProvider<WalletProvider> {
         try {
           // Dummy yield data
           const yields = {
-            'Aave': 5.6, // 5.6%
-            'Compound': 4.3, // 4.3%
-            'Yearn': 6.2, // 6.2%
+            'Aave': 3.86, // 5.6%
+            'Compound': 5.96, // 4.3%
           };
     
           // Find the best yield and its protocol
