@@ -1,6 +1,6 @@
 # VaultAI
 
-VaultAI is an advanced AI-driven personal assistant designed for seamless crypto asset management. With VaultAI, you can monitor your balances, manage your portfolio, send tokens, supply and borrow assets, and maximize yield farming opportunities—all in one place. Powered by AI, it delivers real-time insights and recommendations to optimize your crypto strategy with ease.
+VaultAI is your personal AI agent that aims to seamlessly manage your crypto assets, providing real-time insights and recommendations for DeFi strategies, yield farming, and portfolio optimization.
 
 ## Features
 
