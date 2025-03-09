@@ -39,6 +39,12 @@ To get started with VaultAI, follow these steps:
 3. Configure API keys and environment variables in `.env` file:
    ```
    API_KEY=your_api_key
+   CDP_API_KEY_PRIVATE_KEY=
+   CDP_API_KEY_NAME=
+   ALCHEMY_API_KEY
+   PRIVATE_KEY=
+   OPENAI_API_KEY=
+   NETWORK_ID=
    ```
 
 4. Start the application:
