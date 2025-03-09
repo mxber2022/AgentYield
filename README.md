@@ -3,6 +3,9 @@
 VaultAI is your personal AI agent that aims to seamlessly manage your crypto assets, providing real-time insights and recommendations for DeFi strategies, yield farming, and portfolio optimization.
 
 ## Features
+- **Deploy Contract**: deploy erc20 and erc 721 contract.
+
+- **Lending and Borrowing**: Lend and borrow crypto on defi.
 
 - **Balance Inquiry**: Check balances of various tokens and assets across multiple wallets.
   
