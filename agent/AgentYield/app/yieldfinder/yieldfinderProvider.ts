@@ -1,5 +1,6 @@
 import { ActionProvider, WalletProvider, Network, CreateAction, EvmWalletProvider } from "@coinbase/agentkit";
 import { z } from "zod";
+import { AxelarAssetTransfer, CHAINS, Environment } from "@axelar-network/axelarjs-sdk";
 //import { ethers } from "ethers";
 import { encodeDeployData } from "viem";
 // Define a schema with a message field for "Hello World"
@@ -13,6 +14,27 @@ export const DeployTokenSchema = z.object({
     tokenName: z.string(),
     tokenSymbol: z.string(),
 });
+export const CrosschainTransferSchema = z.object({
+	sourceChain: z.string().describe("Axelar chain ID of the source blockchain"),
+	destinationChain: z.string().describe("Axelar chain ID of the destination blockchain"),
+	destinationAddress: z.string().describe("Receiving address on the destination chain"),
+	asset: z.string().describe("Asset denomination (e.g., 'uausdc' for axlUSDC)"),
+	environment: z.enum(['testnet', 'mainnet']).default('testnet'),
+	options: z.object({
+	  shouldUnwrapIntoNative: z.boolean().optional()
+		.describe("Set true to receive native asset instead of wrapped token"),
+	  refundAddress: z.string().optional()
+		.describe("Address for refunds (only for wrap/unwrap transactions)"),
+	}).optional(),
+});
+
+const FeeEstimationSchema = z.object({
+	sourceChain: z.string(),
+	destinationChain: z.string(),
+	asset: z.string(),
+	amount: z.number().min(0),
+	environment: z.enum(['testnet', 'mainnet']).default('testnet'),
+  });
 
 class HelloWorldActionProvider extends ActionProvider<WalletProvider> {
     constructor() {
@@ -111,6 +133,101 @@ class HelloWorldActionProvider extends ActionProvider<WalletProvider> {
       //deploy erc 721 
 
       // ... existing code ...
+
+	  //crosschain deposit
+	  @CreateAction({
+		name: "generate-deposit-address",
+		description: "Generates a cross-chain deposit address using Axelar Gateway",
+		schema: CrosschainTransferSchema,
+	  })
+	  async generateDepositAddress(
+		wallet: EvmWalletProvider,
+		args: z.infer<typeof CrosschainTransferSchema>
+	  ): Promise<string> {
+		try {
+		  const axelarAssetTransfer = new AxelarAssetTransfer({
+			environment: args.environment === 'testnet' ? Environment.TESTNET : Environment.MAINNET,
+		  });
+	  
+		//   const depositAddress = await axelarAssetTransfer.getDepositAddress({
+		// 	fromChain: args.sourceChain,
+		// 	toChain: args.destinationChain,
+		// 	destinationAddress: args.destinationAddress,
+		// 	asset: args.asset,
+		// 	options: args.options,
+		//   });
+	  
+		//   return `Deposit address generated: ${depositAddress}\n` +
+		// 		 `Send your assets to this address on ${args.sourceChain}.\n` +
+		// 		 `Minimum amount must cover cross-chain fees (use estimateFee action to check).`;
+
+		const fromChain = CHAINS.TESTNET.MOONBEAM,
+		toChain = CHAINS.TESTNET.BASE_SEPOLIA,
+		destinationAddress = "0xF16DfB26e1FEc993E085092563ECFAEaDa7eD7fD",
+		asset = "uausdc"; // denom of asset. See note (2) below
+
+		const depositAddress = await axelarAssetTransfer.getDepositAddress({
+		fromChain,
+		toChain,
+		destinationAddress,
+		asset,
+		});
+
+		  return `Deposit address generated: ${depositAddress}\n` +
+				 `Send your assets to this address on ${args.sourceChain}.\n` +
+				 `Minimum amount must cover cross-chain fees (use estimateFee action to check).`;
+		} catch (error) {
+		  throw new Error(`Failed to generate deposit address: ${error}`);
+		}
+	  }
+
+
+	  @CreateAction({
+		name: "estimate-crosschain-fee",
+		description: "Estimates cross-chain transfer fees using Axelar",
+		schema: FeeEstimationSchema,
+	  })
+	  async estimateCrosschainFee(
+		wallet: EvmWalletProvider,
+		args: z.infer<typeof FeeEstimationSchema>
+	  ): Promise<string> {
+		try {
+		  const { AxelarQueryAPI, CHAINS } = await import("@axelar-network/axelarjs-sdk");
+		  
+		  const api = new AxelarQueryAPI({
+			environment: Environment.TESTNET,
+		  });
+	  
+		//   const fee = await api.getTransferFee(
+		// 	args.sourceChain,
+		// 	args.destinationChain,
+		// 	args.asset,
+		// 	args.amount
+		//   );
+
+		const fees = await api.getTransferFee(
+			CHAINS.TESTNET.MOONBEAM,
+			CHAINS.TESTNET.AVALANCHE,
+			"uausdc",
+			100000, //(0.1)
+		  );
+
+		  console.log(args.sourceChain);
+		  console.log(args.destinationChain);
+		  console.log(args.asset);
+		  console.log(args.amount);
+	  
+		  if (fees && fees.fee) {
+			const { amount, denom } = fees.fee; // Destructure fee object
+			return `Estimated cross-chain fee: ${amount} ${denom}`;
+		  } else {
+			throw new Error("Fee estimation failed: Invalid response structure");
+		  }
+		} catch (error) {
+		  throw new Error(`Fee estimation failed: ${error}`);
+		}
+	  }
+
 
 @CreateAction({
     name: "deploy-erc721-token",
