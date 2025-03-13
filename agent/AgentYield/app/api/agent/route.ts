@@ -10,8 +10,8 @@ import {
   walletActionProvider,
   wethActionProvider,
   compoundActionProvider,
-  morphoActionProvider,
-  alchemyTokenPricesActionProvider
+  // morphoActionProvider,
+  alchemyTokenPricesActionProvider,
 } from "@coinbase/agentkit";
 import { getLangChainTools } from "@coinbase/agentkit-langchain";
 import { ChatOpenAI } from "@langchain/openai";
@@ -22,6 +22,8 @@ import { createWalletClient, Hex, http } from "viem";
 import { generatePrivateKey, privateKeyToAccount } from "viem/accounts";
 import fs from "fs";
 import { helloWorldActionProvider } from "@/app/yieldfinder/yieldfinderProvider";
+import { westend } from "@/app/chain/westend";
+import { moonbeam, moonbeamDev, moonbaseAlpha } from "viem/chains";
 
 /**
  * AgentKit Integration Route
@@ -75,7 +77,9 @@ const WALLET_DATA_FILE = "wallet_data.txt";
  *
  * @throws {Error} If the agent initialization fails.
  */
-async function getOrInitializeAgent(): Promise<ReturnType<typeof createReactAgent>> {
+async function getOrInitializeAgent(): Promise<
+  ReturnType<typeof createReactAgent>
+> {
   // If agent has already been initialized, return it
   if (agent) {
     return agent;
@@ -89,24 +93,26 @@ async function getOrInitializeAgent(): Promise<ReturnType<typeof createReactAgen
     let privateKey = process.env.PRIVATE_KEY as Hex;
     if (!privateKey) {
       if (fs.existsSync(WALLET_DATA_FILE)) {
-        privateKey = JSON.parse(fs.readFileSync(WALLET_DATA_FILE, "utf8")).privateKey;
+        privateKey = JSON.parse(
+          fs.readFileSync(WALLET_DATA_FILE, "utf8")
+        ).privateKey;
         console.info("Found private key in wallet_data.txt");
       } else {
         privateKey = generatePrivateKey();
         fs.writeFileSync(WALLET_DATA_FILE, JSON.stringify({ privateKey }));
         console.log("Created new private key and saved to wallet_data.txt");
         console.log(
-          "We recommend you save this private key to your .env file and delete wallet_data.txt afterwards.",
+          "We recommend you save this private key to your .env file and delete wallet_data.txt afterwards."
         );
       }
     }
- 
+
     const account = privateKeyToAccount(privateKey);
     const networkId = process.env.NETWORK_ID as string;
 
     const client = createWalletClient({
       account,
-      chain: NETWORK_ID_TO_VIEM_CHAIN[networkId],
+      chain: moonbaseAlpha,
       transport: http(),
     });
     const walletProvider = new ViemWalletProvider(client);
@@ -119,15 +125,16 @@ async function getOrInitializeAgent(): Promise<ReturnType<typeof createReactAgen
       erc20ActionProvider(),
       helloWorldActionProvider(),
       compoundActionProvider(),
-      alchemyTokenPricesActionProvider()
+      alchemyTokenPricesActionProvider(),
     ];
-    const canUseCdpApi = process.env.CDP_API_KEY_NAME && process.env.CDP_API_KEY_PRIVATE_KEY;
+    const canUseCdpApi =
+      process.env.CDP_API_KEY_NAME && process.env.CDP_API_KEY_PRIVATE_KEY;
     if (canUseCdpApi) {
       actionProviders.push(
         cdpApiActionProvider({
           apiKeyName: process.env.CDP_API_KEY_NAME,
           apiKeyPrivateKey: process.env.CDP_API_KEY_PRIVATE_KEY,
-        }),
+        })
       );
     }
     const agentkit = await AgentKit.from({
@@ -138,7 +145,8 @@ async function getOrInitializeAgent(): Promise<ReturnType<typeof createReactAgen
     const memory = new MemorySaver();
 
     // Initialize Agent
-    const canUseFaucet = walletProvider.getNetwork().networkId == "base-sepolia" && canUseCdpApi;
+    const canUseFaucet =
+      walletProvider.getNetwork().networkId == "base-sepolia" && canUseCdpApi;
     const faucetMessage = `If you ever need funds, you can request them from the faucet.`;
     const cantUseFaucetMessage = `If you need funds, you can provide your wallet details and request funds from the user.`;
     agent = createReactAgent({
@@ -147,7 +155,9 @@ async function getOrInitializeAgent(): Promise<ReturnType<typeof createReactAgen
       checkpointSaver: memory,
       messageModifier: `
         You are a helpful agent that can interact onchain using the Coinbase Developer Platform AgentKit. You are 
-        empowered to interact onchain using your tools. ${canUseFaucet ? faucetMessage : cantUseFaucetMessage}.
+        empowered to interact onchain using your tools. ${
+          canUseFaucet ? faucetMessage : cantUseFaucetMessage
+        }.
         Before executing your first action, get the wallet details to see what network 
         you're on. If there is a 5XX (internal) HTTP error code, ask the user to try again later. If someone 
         asks you to do something you can't do with your currently available tools, you must say so, and 
@@ -182,7 +192,7 @@ async function getOrInitializeAgent(): Promise<ReturnType<typeof createReactAgen
  * });
  */
 export async function POST(
-  req: Request & { json: () => Promise<AgentRequest> },
+  req: Request & { json: () => Promise<AgentRequest> }
 ): Promise<NextResponse<AgentResponse>> {
   try {
     // 1️. Extract user message from the request body
@@ -194,7 +204,7 @@ export async function POST(
     // 3.Start streaming the agent's response
     const stream = await agent.stream(
       { messages: [{ content: userMessage, role: "user" }] }, // The new message to send to the agent
-      { configurable: { thread_id: "AgentKit Discussion" } }, // Customizable thread ID for tracking conversations
+      { configurable: { thread_id: "AgentKit Discussion" } } // Customizable thread ID for tracking conversations
     );
 
     // 4️. Process the streamed response chunks into a single message
