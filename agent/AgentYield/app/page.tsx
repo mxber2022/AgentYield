@@ -2,7 +2,7 @@
 
 import { useAgent } from "./hooks/useAgent";
 import React, { useState, useEffect, useRef } from 'react';
-import { Send, Loader2, LineChart, Shield, Wallet, Menu, X, ChevronRight, Hexagon, ArrowUpRight, Sparkles, Activity,Bot, Coins, Square } from 'lucide-react';
+import { Send, Loader2, LineChart, Shield, Wallet, Menu, X, ChevronRight, Hexagon, ArrowUpRight, Activity,Bot, Coins, Square, Bell, Circle } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 
 
@@ -231,74 +231,52 @@ function App() {
     setInput(`deploy ${type} with name ${formData.name} and symbol ${formData.symbol} and supply  ${formData.initialSupply}` );
   };
 
+  const Logo = () => (
+    <div className="flex items-center space-x-2">
+      <div className="relative">
+        <div className="w-6 h-6 rounded-full bg-gradient-to-br from-white to-pink-100 flex items-center justify-center">
+          <Circle className="w-4 h-4 text-pink-500" strokeWidth={2} />
+        </div>
+     
+      </div>
+      <span className="text-white font-light tracking-tight">
+        Dot<span className="font-bold">AI</span>
+      </span>
+    </div>
+  );
+
   return (
     <div className="min-h-screen bg-black flex flex-col">
     {/* Header */}
-    <header className="glass fixed w-full z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex items-center">
-            <div className="flex-shrink-0 flex items-center space-x-3 group cursor-pointer">
-              <div className="relative">
-                <Hexagon className="w-8 h-8 text-white rotate-90 group-hover:scale-110 transition-transform duration-500" strokeWidth={1.25} />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-2 h-2 bg-white rounded-full animate-pulse-slow" />
-                </div>
-                <div className="absolute inset-0 flex items-center justify-center opacity-50">
-                  <div className="w-4 h-4 bg-white/10 rounded-full animate-ping" />
-                </div>
-              </div>
-              <h1 className="text-3xl font-light tracking-tighter text-gradient">
-                Vault<span className="font-bold">AI</span>
-              </h1>
+    <header className="fixed w-full z-50 bg-white/5 backdrop-blur-xl border-b border-white/5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center gap-8">
+              <Logo />
+              <nav className="hidden md:flex items-center gap-6">
+                {navigationItems.map((item) => (
+                  <a
+                    key={item.name}
+                    href="#"
+                    className="group flex items-center text-white/70 hover:text-white px-3 py-2 text-sm font-medium tracking-wide transition-all duration-300 rounded-lg hover:bg-white/5"
+                  >
+                    <item.icon className="w-4 h-4 mr-2 group-hover:text-pink-400 transition-colors" />
+                    {item.name}
+                  </a>
+                ))}
+              </nav>
             </div>
-            <nav className="hidden md:ml-12 md:flex md:space-x-8">
-              {navigationItems.map((item) => (
-                <a
-                  key={item.name}
-                  href="#"
-                  className="group flex items-center text-white/60 hover:text-white px-3 py-1.5 text-sm font-medium tracking-wide transition-all duration-300 glass-hover rounded-lg"
-                >
-                  <item.icon className="w-4 h-4 mr-2 group-hover:text-white transition-colors" />
-                  {item.name}
-                  <ArrowUpRight className="w-3.5 h-3.5 ml-1.5 opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500" />
-                </a>
-              ))}
-            </nav>
-          </div>
             
-            <div className="md:hidden">
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2.5 rounded-xl text-white/60 hover:text-white glass-hover transition-all"
-              >
-                {isMobileMenuOpen ? (
-                  <X className="h-6 w-6" />
-                ) : (
-                  <Menu className="h-6 w-6" />
-                )}
+            <div className="flex items-center gap-4">
+              <button className="px-4 py-2 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-300">
+                <Bell className="w-5 h-5" />
               </button>
+              {/* <button className="px-4 py-2 bg-white text-pink-500 rounded-lg hover:bg-white/90 transition-all duration-300 font-medium">
+                Connect Wallet
+              </button> */}
             </div>
           </div>
         </div>
-
-        {isMobileMenuOpen && (
-          <div className="md:hidden glass border-t border-white/5">
-            <div className="px-3 pt-3 pb-4 space-y-2">
-              {navigationItems.map((item) => (
-                <a
-                  key={item.name}
-                  href="#"
-                  className="flex items-center text-white/60 hover:text-white glass-hover px-4 py-3 rounded-xl text-base font-medium tracking-wide transition-all"
-                >
-                  <item.icon className="w-5 h-5 mr-3" />
-                  {item.name}
-                  <ChevronRight className="w-5 h-5 ml-auto" />
-                </a>
-              ))}
-            </div>
-          </div>
-        )}
       </header>
 
       {/* Main Content */}
@@ -435,13 +413,13 @@ function App() {
       </main>
 
       {/* Footer */}
-      <footer className="glass mt-auto">
+      {/* <footer className="glass mt-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
                 <Hexagon className="w-4 h-4 text-white/90 rotate-90" strokeWidth={1.5} />
-                <span className="text-white/90 font-light tracking-tighter">Vault<span className="font-bold">AI</span></span>
+                <span className="text-white/90 font-light tracking-tighter">Dot<span className="font-bold">AI</span></span>
               </div>
               <span className="text-white/20">|</span>
               <span className="text-white/50 text-sm tracking-wide">Optimizing DeFi yields with AI</span>
@@ -450,6 +428,30 @@ function App() {
               <a href="#" className="text-white/50 hover:text-white text-sm transition-colors tracking-wide">Terms</a>
               <a href="#" className="text-white/50 hover:text-white text-sm transition-colors tracking-wide">Privacy</a>
               <a href="#" className="text-white/50 hover:text-white text-sm transition-colors tracking-wide">Documentation</a>
+            </div>
+          </div>
+        </div>
+      </footer> */}
+
+      <footer className="bg-white/5 backdrop-blur-xl border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2">
+                {/* <Hexagon className="w-4 h-4 text-white/90 rotate-90" strokeWidth={1.5} /> */}
+                
+                <span className="text-white/90 font-light tracking-tighter">Dot<span className="font-bold">AI</span></span>
+              </div>
+              <span className="text-white/20">|</span>
+              <span className="text-white/50 text-sm tracking-wide">Optimizing DeFi yields with AI</span>
+            </div>
+            <div className="flex items-center gap-6">
+              <a href="#" className="text-white/70 hover:text-white text-sm transition-colors">Terms</a>
+              <a href="#" className="text-white/70 hover:text-white text-sm transition-colors">Privacy</a>
+              <a href="#" className="text-white/70 hover:text-white text-sm transition-colors">Documentation</a>
+            </div>
+            <div className="text-white/50 text-sm">
+              © 2025 DotAI. All rights reserved.
             </div>
           </div>
         </div>
