@@ -1,9 +1,11 @@
-# VaultAI
+# DotAI
 
-VaultAI is your personal AI agent that aims to seamlessly manage your crypto assets, providing real-time insights and recommendations for DeFi strategies, yield farming, and portfolio optimization.
+DotAI is an AI agent designed to seamlessly manage your crypto assets, offering real-time insights and recommendations for DeFi strategies, token bridging, contract deployment, and portfolio optimization.
 
 ## Features
 - **Deploy Contract**: deploy erc20 and erc 721 contract.
+
+- **Bridge Token**: bridge token using axelar.
 
 - **Lending and Borrowing**: Lend and borrow crypto on defi.
 
